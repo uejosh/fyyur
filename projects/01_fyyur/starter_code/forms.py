@@ -2,6 +2,22 @@ from datetime import datetime
 from flask_wtf import Form
 from wtforms import StringField, SelectField, SelectMultipleField, DateTimeField, BooleanField
 from wtforms.validators import InputRequired, AnyOf, URL
+from wtforms import ValidationError
+import phonenumbers
+
+
+# def validate_phone(form, field):
+#         if len(field.data) > 16:
+#             raise ValidationError('Invalid phone number.')
+#         try:
+#             input_number = phonenumbers.parse(field.data)
+#             if not (phonenumbers.is_valid_number(input_number)):
+#                 raise ValidationError('Invalid phone number.')
+#         except:
+#             input_number = phonenumbers.parse("+1"+field.data)
+#             if not (phonenumbers.is_valid_number(input_number)):
+#                 raise ValidationError('Invalid phone number.')
+
 
 class ShowForm(Form):
     artist_id = StringField(
@@ -194,7 +210,7 @@ class ArtistForm(Form):
     )
     phone = StringField(
         # TODO implement validation logic for phone 
-        'phone', validators=[InputRequired(), AnyOf(values=[0-9])]
+        'phone', validators=[InputRequired()]
     )
     image_link = StringField(
         'image_link'
