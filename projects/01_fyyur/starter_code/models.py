@@ -20,7 +20,7 @@ class Venue(db.Model):
     shows = db.relationship('Show', backref = 'venue', lazy = True, cascade = "all,delete", passive_deletes = True)
     seeking_talent = db.Column(db.Boolean)
     seeking_description = db.Column(db.String(500))
-    # genres = db.Column(db.PickleType)
+    # genres = db.Column(db.PickleType, nullable = True)
     genres = db.Column(db.ARRAY(db.String(120)))
     created_at = db.Column(db.DateTime, default = datetime.datetime.utcnow())
     def __repr__(self):
@@ -42,7 +42,7 @@ class Artist(db.Model):
     shows = db.relationship('Show', backref = 'artist', lazy = True, cascade = "all,delete", passive_deletes = True)
     seeking_venue = db.Column(db.Boolean)
     seeking_description = db.Column(db.String(500))
-    # genres = db.Column(db.PickleType)
+    # genres = db.Column(db.PickleType, nullable = True)
     genres = db.Column(db.ARRAY(db.String(120)))
     created_at = db.Column(db.DateTime, default = datetime.datetime.utcnow())
     def __repr__(self):

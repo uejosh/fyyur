@@ -1,7 +1,7 @@
 from datetime import datetime
 from flask_wtf import Form
 from wtforms import StringField, SelectField, SelectMultipleField, DateTimeField, BooleanField
-from wtforms.validators import DataRequired, AnyOf, URL
+from wtforms.validators import InputRequired, AnyOf, URL
 
 class ShowForm(Form):
     artist_id = StringField(
@@ -12,19 +12,19 @@ class ShowForm(Form):
     )
     start_time = DateTimeField(
         'start_time',
-        validators=[DataRequired()],
+        validators=[InputRequired()],
         default= datetime.today()
     )
 
 class VenueForm(Form):
     name = StringField(
-        'name', validators=[DataRequired()]
+        'name', validators=[InputRequired()]
     )
     city = StringField(
-        'city', validators=[DataRequired()]
+        'city', validators=[InputRequired()]
     )
     state = SelectField(
-        'state', validators=[DataRequired()],
+        'state', validators=[InputRequired()],
         choices=[
             ('AL', 'AL'),
             ('AK', 'AK'),
@@ -80,7 +80,7 @@ class VenueForm(Form):
         ]
     )
     address = StringField(
-        'address', validators=[DataRequired()]
+        'address', validators=[InputRequired()]
     )
     phone = StringField(
         'phone'
@@ -90,7 +90,7 @@ class VenueForm(Form):
     )
     genres = SelectMultipleField(
         # TODO implement enum restriction
-        'genres', validators=[DataRequired()],
+        'genres', validators=[InputRequired()],
         choices=[
             ('Alternative', 'Alternative'),
             ('Blues', 'Blues'),
@@ -131,13 +131,13 @@ class VenueForm(Form):
 
 class ArtistForm(Form):
     name = StringField(
-        'name', validators=[DataRequired()]
+        'name', validators=[InputRequired()]
     )
     city = StringField(
-        'city', validators=[DataRequired()]
+        'city', validators=[InputRequired()]
     )
     state = SelectField(
-        'state', validators=[DataRequired()],
+        'state', validators=[InputRequired()],
         choices=[
             ('AL', 'AL'),
             ('AK', 'AK'),
@@ -194,13 +194,13 @@ class ArtistForm(Form):
     )
     phone = StringField(
         # TODO implement validation logic for phone 
-        'phone'
+        'phone', validators=[InputRequired(), AnyOf(values=[0-9])]
     )
     image_link = StringField(
         'image_link'
     )
     genres = SelectMultipleField(
-        'genres', validators=[DataRequired()],
+        'genres', validators=[InputRequired()],
         choices=[
             ('Alternative', 'Alternative'),
             ('Blues', 'Blues'),
